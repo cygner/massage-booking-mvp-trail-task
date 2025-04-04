@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import * as crypto from 'crypto';
 import { Booking } from '../../booking/entities/booking.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class User {
@@ -33,7 +34,7 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Booking, (booking) => booking.user)
+  @OneToMany(() => Booking, (booking) => booking.user_id)
   booking: Booking[];
 
   @BeforeInsert()

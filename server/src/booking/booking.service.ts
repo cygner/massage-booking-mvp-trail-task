@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { Booking } from './entities/booking.entity';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/entities/user.entity';
 import { Massage } from 'src/massage/entities/massage.entity';
@@ -49,9 +49,12 @@ export class BookingService {
       const bookingObject = this.bookingRepository.create({
         booking_time,
         user_id: user.id,
-        massage_id,
-      });
+        massage_id: massage_id,
+      } as DeepPartial<Booking>);
+
       const booking = await this.bookingRepository.save(bookingObject);
+      console.log(booking);
+
       return { booking_ref_id: booking.id };
     } catch (error) {
       throw new HttpException(
@@ -68,11 +71,9 @@ export class BookingService {
   }
 
   async findAll() {
-    return await this.bookingRepository
-      .createQueryBuilder('booking')
-      .leftJoinAndSelect('booking.massage_id', 'massage')
-      .leftJoinAndSelect('booking.user_id', 'user')
-      .getMany();
+    return await this.bookingRepository.find({
+      relations: { user_id: true, massage_id: true },
+    });
   }
 
   findOne(id: number) {

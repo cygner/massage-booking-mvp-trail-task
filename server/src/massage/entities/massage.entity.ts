@@ -25,6 +25,6 @@ export class Massage {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Booking, (booking) => booking.massage)
+  @OneToMany(() => Booking, (booking) => booking.massage_id)
   booking: Booking[];
 }

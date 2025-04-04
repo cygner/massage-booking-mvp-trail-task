@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateBookingDto {
   @IsNotEmpty()
+  @IsNumber()
   massage_id: number;
 
   @IsNotEmpty()
@@ -11,5 +12,5 @@ export class CreateBookingDto {
 
   @IsNotEmpty()
   @IsString()
-  booking_time: Date;
+  booking_time: string;
 }
