@@ -1,0 +1,25 @@
+{
+  "app_name": "App Name",
+  "welcome_back": "Welcome Back",
+  "login_to_your_account": "Login to your account",
+  "login": "Login",
+  "enter_register_email": "Enter your registered email",
+  "enter_password": "Enter your password",
+  "proceed_to_login": "Proceed to Login",
+  "enter_your_name": "Enter your name",
+  "enter_your_email": "Enter your email",
+  "proceed_to_register": "Proceed to Register",
+  "register": "Register",
+  "create_your_new_account": "Create an account",
+  "already_account": "Already have an account?",
+  "login_here": "Login here...",
+  "no_register_yet": "Not registered yet?",
+  "register_here": "Register here...",
+  "welcome_user": "Welcome {user}!",
+  "book": "Book",
+  "booking_history": "Booking History",
+  "create_booking" : "Create Booking",
+  "massage_type" : "Massage type",
+  "date_time": "Date and Time"
+
+}
