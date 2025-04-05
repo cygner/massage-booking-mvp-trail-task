@@ -10,10 +10,13 @@ import { DeepPartial, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/entities/user.entity';
 import { Massage } from 'src/massage/entities/massage.entity';
+import { FirebaseService } from 'src/firebase/firebase.service';
 
 @Injectable()
 export class BookingService {
   constructor(
+    private firebaseService: FirebaseService,
+
     @InjectRepository(User)
     private usersRepository: Repository<User>,
 
@@ -53,6 +56,11 @@ export class BookingService {
       } as DeepPartial<Booking>);
 
       const booking = await this.bookingRepository.save(bookingObject);
+
+      await this.firebaseService.sendNotification(user.firebase_token, {
+        title: 'Your booking has confirmed!',
+        body: `You booking ref id is #${booking.id}`,
+      });
 
       return { booking_ref_id: booking.id };
     } catch (error) {

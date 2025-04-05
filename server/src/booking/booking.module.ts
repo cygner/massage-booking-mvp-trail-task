@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Booking } from './entities/booking.entity';
 import { User } from 'src/auth/entities/user.entity';
 import { Massage } from 'src/massage/entities/massage.entity';
+import { FirebaseModule } from 'src/firebase/firebase.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Booking, User, Massage])],
+  imports: [TypeOrmModule.forFeature([Booking, User, Massage]), FirebaseModule],
   controllers: [BookingController],
   providers: [BookingService],
 })
