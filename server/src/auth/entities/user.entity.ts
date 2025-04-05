@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import * as crypto from 'crypto';
 import { Booking } from '../../booking/entities/booking.entity';
-import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class User {

@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Exclude, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import { IsEmail, IsString } from 'class-validator';
 
 // @Exclude()
 export class UserResponseDto {
+  @Expose()
+  @IsString()
+  id: string;
+
   @Expose()
   @IsString()
   name: string;

@@ -34,7 +34,7 @@ export class BookingService {
     });
 
     const massage = await this.massageRepository.findOne({
-      where: { id: massage_id },
+      where: { id: parseInt(massage_id) },
     });
 
     if (!user) {
@@ -53,7 +53,6 @@ export class BookingService {
       } as DeepPartial<Booking>);
 
       const booking = await this.bookingRepository.save(bookingObject);
-      console.log(booking);
 
       return { booking_ref_id: booking.id };
     } catch (error) {
@@ -70,13 +69,36 @@ export class BookingService {
     }
   }
 
-  async findAll() {
-    return await this.bookingRepository.find({
-      relations: { user_id: true, massage_id: true },
-    });
-  }
+  async findBookingsByUserId(id: number): Promise<{ bookings: Booking[] }> {
+    const user = await this.usersRepository.findOne({ where: { id } });
 
-  findOne(id: number) {
-    return `This action returns a #${id} booking`;
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    try {
+      const bookings = await this.bookingRepository.find({
+        where: { user_id: { id } },
+        relations: { user_id: true, massage_id: true },
+        select: {
+          user_id: {
+            password: false,
+          },
+        },
+      });
+
+      return { bookings };
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: 'Internal server error',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        {
+          cause: error,
+        },
+      );
+    }
   }
 }

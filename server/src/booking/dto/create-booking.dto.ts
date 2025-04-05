@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateBookingDto {
   @IsNotEmpty()
-  @IsNumber()
-  massage_id: number;
+  @IsString()
+  massage_id: string;
 
   @IsNotEmpty()
   @IsEmail()
