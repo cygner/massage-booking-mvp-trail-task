@@ -16,13 +16,7 @@ export class Booking {
   id: number;
 
   @Column()
-  massage_id: number;
-
-  @Column()
-  user_id: number;
-
-  @Column('datetime')
-  booking_time: Date;
+  booking_time: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -31,10 +25,10 @@ export class Booking {
   updated_at: Date;
 
   @ManyToOne(() => Massage, (massage) => massage.booking)
-  @JoinColumn({ name: 'massage_id' })
-  massage: Massage;
+  @JoinColumn({ name: 'massage' })
+  massage_id: Massage;
 
   @ManyToOne(() => User, (user) => user.booking)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @JoinColumn({ name: 'user' })
+  user_id: User;
 }

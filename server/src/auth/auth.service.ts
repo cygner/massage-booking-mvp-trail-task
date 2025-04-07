@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import {
   ConflictException,
   HttpException,
@@ -39,7 +38,7 @@ export class AuthService {
       return plainToInstance(UserResponseDto, savedUser, {
         excludeExtraneousValues: true,
         enableImplicitConversion: true,
-      }) as UserResponseDto;
+      });
     } catch (error) {
       throw new HttpException(
         {
@@ -55,7 +54,7 @@ export class AuthService {
   }
 
   async login(loginDto: UserLoginDto): Promise<UserResponseDto> {
-    const { email, password } = loginDto;
+    const { email, password, firebase_token } = loginDto;
 
     const user = await this.usersRepository.findOne({ where: { email } });
     if (!user) {
@@ -67,9 +66,19 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    if (firebase_token) {
+      user.firebase_token = firebase_token;
+      const updatedUser = await this.usersRepository.save(user);
+
+      return plainToInstance(UserResponseDto, updatedUser, {
+        excludeExtraneousValues: true,
+        enableImplicitConversion: true,
+      });
+    }
+
     return plainToInstance(UserResponseDto, user, {
       excludeExtraneousValues: true,
       enableImplicitConversion: true,
-    }) as UserResponseDto;
+    });
   }
 }

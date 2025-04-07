@@ -3,7 +3,8 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateBookingDto {
   @IsNotEmpty()
-  massage_id: number;
+  @IsString()
+  massage_id: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -11,5 +12,5 @@ export class CreateBookingDto {
 
   @IsNotEmpty()
   @IsString()
-  booking_time: Date;
+  booking_time: string;
 }

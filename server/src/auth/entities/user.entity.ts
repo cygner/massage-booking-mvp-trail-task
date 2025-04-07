@@ -33,7 +33,7 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Booking, (booking) => booking.user)
+  @OneToMany(() => Booking, (booking) => booking.user_id)
   booking: Booking[];
 
   @BeforeInsert()
